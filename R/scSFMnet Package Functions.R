@@ -8,7 +8,6 @@
 #' "Single-cell Differential Network Analysis with Sparse Bayesian Factor Models"
 #' manuscript.
 #'
-#' WRITE OTHER DETAILS HERE
 #'
 #' @param Y data.frame or matrix of gene expression counts where the rows correspond to genes and
 #'          columns correspond to cells; Y must contain integers and have row names
@@ -19,7 +18,7 @@
 #'                 "DHS" for Double HorseShoe
 #' @param boot.iter total number of bootstrap iterations
 #' @param ori.data if TRUE, the first iteration will consist of the original (non-sampled) data; to be used
-#                  when interested in non-bootstrapped results or in the first optimization when bootstrapping
+#'                 when interested in non-bootstrapped results or in the first optimization when bootstrapping
 #' @param seed seed for random number generation
 #' @param stan.iter maximum number of optimization iterations
 #' @param stan.history.size number of update vectors to use in Hessian approximations; for more details refer to
@@ -39,7 +38,7 @@
 #' @examples
 #' \dontrun{
 #' ## Load dataset
-#' data(diff.gene.mat)
+#' data("diff.gene.mat")
 #'
 #' ## First 100 columns are the control group, the next 100 columns are the treatment group
 #' t_i = rep(0:1,each=100)
@@ -164,42 +163,42 @@ sfm = function(Y, treatGroup, Fac, mod.type = "SHS", boot.iter = 1, ori.data = F
 #'
 #'  \itemize{
 #'   \item{corr.d}{: symmetric estimated differential correlation matrix generated from optimization}
-#'   \item{CI.low.d}{: symmetric matrix representing the lower bound of the 95\% credible intervals (CI) generated from the bootstrap optimizations for differential network analysis}
-#'   \item{CI.upp.d}{: symmetric matrix representing the upper bound of the 95\% credible intervals (CI) generated from the bootstrap optimizations for differential network analysis}
-#'   \item{CI.eval.d}{: symmetric logical matrix generated from 95\% credible intervals (CI) from bootstrap optimizations for differential network analysis;
-#'                    TRUE means 95\% CI does not include 0 (i.e., significant correlation)}
+#'   \item{CI.low.d}{: symmetric matrix representing the lower bound of the 95% confidence intervals (CI) generated from the bootstrap optimizations for differential network analysis}
+#'   \item{CI.upp.d}{: symmetric matrix representing the upper bound of the 95% confidence intervals (CI) generated from the bootstrap optimizations for differential network analysis}
+#'   \item{CI.eval.d}{: symmetric logical matrix generated from 95% confidence intervals (CI) from bootstrap optimizations for differential network analysis;
+#'                    TRUE means 95% CI does not include 0 (i.e., significant correlation)}
 #'   \item{p.val.d}{: symmetric matrix consisting of approximate "p-values" generated from bootstrap optimizations for differential network analysis}
 #'   \item{corr.0}{: symmetric estimated correlation matrix generated from optimization for control group}
-#'   \item{CI.low.0}{: symmetric matrix representing the lower bound of the 95\% credible intervals (CI) generated from the bootstrap optimizations for control group}
-#'   \item{CI.upp.0}{: symmetric matrix representing the upper bound of the 95\% credible intervals (CI) generated from the bootstrap optimizations for control group}
-#'   \item{CI.eval.0}{: symmetric logical matrix generated from 95\% credible intervals (CI) from bootstrap optimizations for control group;
-#'                      TRUE means 95\% CI does not include 0 (i.e., significant correlation)}
+#'   \item{CI.low.0}{: symmetric matrix representing the lower bound of the 95% confidence intervals (CI) generated from the bootstrap optimizations for control group}
+#'   \item{CI.upp.0}{: symmetric matrix representing the upper bound of the 95% confidence intervals (CI) generated from the bootstrap optimizations for control group}
+#'   \item{CI.eval.0}{: symmetric logical matrix generated from 95% confidence intervals (CI) from bootstrap optimizations for control group;
+#'                      TRUE means 95% CI does not include 0 (i.e., significant correlation)}
 #'   \item{p.val.0}{: symmetric matrix consisting of approximate "p-values" generated from bootstrap optimizations for control group}
 #'   \item{corr.1}{: symmetric estimated correlation matrix generated from optimization for treatment group}
-#'   \item{CI.low.1}{: symmetric matrix representing the lower bound of the 95\% credible intervals (CI) generated from the bootstrap optimizations for treatment group}
-#'   \item{CI.upp.1}{: symmetric matrix representing the upper bound of the 95\% credible intervals (CI) generated from the bootstrap optimizations for treatment group}
-#'   \item{CI.eval.1}{: symmetric logical matrix generated from 95\% credible intervals (CI) from bootstrap optimizations for treatment group;
-#'                      TRUE means 95\% CI does not include 0 (i.e., significant correlation)}
+#'   \item{CI.low.1}{: symmetric matrix representing the lower bound of the 95% confidence intervals (CI) generated from the bootstrap optimizations for treatment group}
+#'   \item{CI.upp.1}{: symmetric matrix representing the upper bound of the 95% confidence intervals (CI) generated from the bootstrap optimizations for treatment group}
+#'   \item{CI.eval.1}{: symmetric logical matrix generated from 95% confidence intervals (CI) from bootstrap optimizations for treatment group;
+#'                      TRUE means 95% CI does not include 0 (i.e., significant correlation)}
 #'   \item{p.val.1}{: symmetric matrix consisting of approximate "p-values" generated from bootstrap optimizations for treatment group}
 #' }
 #'
 #' @details
 #' The correlation estimates are determined from original optimization on original (non-sampled) data for each gene-gene pair.
 #'
-#' To determine whether the correlation is significant, a 95\% credible interval (CI) is determined from the bootstrap samples. If the CI
+#' To determine whether the correlation is significant, a 95% confidence interval (CI) is determined from the bootstrap samples. If the CI
 #' includes 0, the correlation is deemed to be non-significant and the "CI.eval" element is FALSE. If the CI does not include 0, the correlation is
 #' considered significant and the "CI.eval" element is TRUE.
 #'
 #' An alternative measurement of significance is the approximate "p-value" calculation, which is output in the "p.val" matrix. This "p-value" is determined
-#' by finding the smallest "a" value such that the 100(1-a)\% CI contains 0. The corresponding "a" value represents the proportion of posterior distribution
-#' that is outside the smallest credible interval that contains 0.
+#' by finding the smallest "a" value such that the 100(1-a)% CI contains 0. The corresponding "a" value represents the proportion of posterior distribution
+#' that is outside the smallest confidence interval that contains 0.
 #'
-#' In most cases a significant 95\% CI from "CI.eval" will correspond with an approximate "p-value" < 0.05 from "p.val".
+#' In most cases a significant 95% CI from "CI.eval" will correspond with an approximate "p-value" < 0.05 from "p.val".
 #'
 #' @examples
 #' \dontrun{
 #' ## Load dataset
-#' data(diff.gene.mat)
+#' data("diff.gene.mat")
 #'
 #' ## First 100 columns are the control group, the next 100 columns are the treatment group
 #' t_i = rep(0:1,each=100)
@@ -410,7 +409,7 @@ sfm.results <- function(sfm.list,ori.samp=1){
 #####################################
 #' Approximate p-values from correlation posterior
 #'
-#' Find the smallest "a" such that the 100(1-a)% credible interval
+#' Find the smallest "a" such that the 100(1-a)% confidence interval
 #' contains 0.
 #'
 #' @param x samples from posterior

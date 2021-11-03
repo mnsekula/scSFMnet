@@ -31,7 +31,8 @@ treatment assignments (control or treatment) of the cells.}
 
 \item{boot.iter}{total number of bootstrap iterations}
 
-\item{ori.data}{if TRUE, the first iteration will consist of the original (non-sampled) data; to be used}
+\item{ori.data}{if TRUE, the first iteration will consist of the original (non-sampled) data; to be used
+when interested in non-bootstrapped results or in the first optimization when bootstrapping}
 
 \item{seed}{seed for random number generation}
 
@@ -58,13 +59,10 @@ Function used to implement the hierarchical Bayesian factor model defined in the
 "Single-cell Differential Network Analysis with Sparse Bayesian Factor Models"
 manuscript.
 }
-\details{
-WRITE OTHER DETAILS HERE
-}
 \examples{
 \dontrun{
 ## Load dataset
-data(diff.gene.mat)
+data("diff.gene.mat")
 
 ## First 100 columns are the control group, the next 100 columns are the treatment group
 t_i = rep(0:1,each=100)
