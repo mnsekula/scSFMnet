@@ -1,0 +1,27 @@
+Package: scSFMnet
+Title: Differential network analysis for scRNA-seq data using sparse Bayesian factor models 
+Version: 0.1.0
+Authors@R: 
+    person("Michael", "Sekula", , "Michael.Sekula@louisville.com", role = c("aut", "cre"))
+Description: R package with functions that implement the methodology defined in the "Single-cell Differential Network Analysis with Sparse Bayesian Factor Models" manuscript.
+License: `use_gpl3_license()`
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Biarch: true
+Depends: 
+    R (>= 3.4.0)
+Imports: 
+    methods,
+    Rcpp (>= 0.12.0),
+    RcppParallel (>= 5.0.1),
+    rstan (>= 2.18.1),
+    rstantools (>= 2.1.1)
+LinkingTo: 
+    BH (>= 1.66.0),
+    Rcpp (>= 0.12.0),
+    RcppEigen (>= 0.3.3.3.0),
+    RcppParallel (>= 5.0.1),
+    rstan (>= 2.18.1),
+    StanHeaders (>= 2.18.0)
+SystemRequirements: GNU make
