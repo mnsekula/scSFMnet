@@ -466,3 +466,23 @@ p.approx <- function(x){
 #' colnames(diff.gene.mat)
 #'
 "diff.gene.mat"
+
+#' Mouse microglia cell (MMC) scRNA-seq data
+#'
+#' Subset of data obtained from the GEO database under accession number GSE90975 and contains the gene expressions from single-cell
+#' analysis of neurodegeneration in microglia cells of mice (Tay et al., 2018). This data includes N = 944 cells G = 98 differentially
+#' expressed genes taken from Figure S1 of the Tay et al. manuscript.
+#'
+#' @format A matrix with 98 rows (genes) and 944 columns (cells)
+#'
+#' @references
+#' Tay, T. L., Dautzenberg, J., Grün, D., & Prinz, M. (2018). Unique microglia recovery population revealed by single-cell RNA-seq following
+#' neurodegeneration. Acta neuropathologica communications, 6(1), 1-11.
+#'
+#'
+#' @examples
+#' data(mmc.gene.mat)
+#' rownames(mmc.gene.mat)
+#' colnames(mmc.gene.mat)
+#'
+"mmc.gene.mat"
