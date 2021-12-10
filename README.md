@@ -1,7 +1,8 @@
 # scSFMnet
 
-**scSFMnet** is an R package that interfaces with [`rstan`](https://mc-stan.org/users/interfaces/rstan). The `rstan` package should be installed and working properly before installing **scSFMnet**. See [Rstan Getting Started](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started) for more details on the `rstan` installation process.
+**scSFMnet** is an R package that interfaces with [`rstan`](https://mc-stan.org/users/interfaces/rstan). The `rstan` package should be installed and working properly before installing **scSFMnet**. See [Rstan Getting Started](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started) for more details on the `rstan` installation process.  
 
+The [rstan GitHub Issue Page](https://github.com/stan-dev/rstan/issues) and the [Stan Forums](https://discourse.mc-stan.org) are also available to find additional help and troubleshooting ideas during the `rstan` installation process.  
 
 ## Installation
 For most users, this package can be installed from GitHub with:
@@ -21,5 +22,7 @@ is.element("scSFMnet", installed.packages()[,1])
 
 
 ## Getting Started
-The package vignette demonstrates how to use the **scSFMnet** package to perform a differential network analysis. This vignette can be viewed online [here](http://htmlpreview.github.io/?https://github.com/mnsekula/scSFMnet/blob/master/scSFMnet.html).
+The package vignette demonstrates how to use the **scSFMnet** package to perform a differential network analysis. This vignette can be viewed online [here](http://htmlpreview.github.io/?https://github.com/mnsekula/scSFMnet/blob/master/scSFMnet.html).  
+
+The code to generate simulated data from the *Single-cell Differential Network Analysis with Sparse Bayesian Factor Models* manuscript can be accessed  [here](http://htmlpreview.github.io/?https://github.com/mnsekula/scSFMnet/blob/master/scSFMnet-Simulation.html).
 
