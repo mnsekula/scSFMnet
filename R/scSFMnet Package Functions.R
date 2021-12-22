@@ -2,7 +2,7 @@
 ## R package functions for SFM-SHS and SFM-DHS
 ##############################################
 
-#' TITLE HERE
+#' Optimization parameter estimation for differential network analysis
 #'
 #' Function used to implement the hierarchical Bayesian factor model defined in the
 #' "Single-cell Differential Network Analysis with Sparse Bayesian Factor Models"

@@ -12,7 +12,7 @@
 
 <meta name="author" content="Michael Sekula" />
 
-<meta name="date" content="2021-11-03" />
+<meta name="date" content="2021-12-20" />
 
 <title>Workflow for scSFMnet package</title>
 
@@ -141,11 +141,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <h1 class="title toc-ignore">Workflow for scSFMnet package</h1>
 <h4 class="author">Michael Sekula</h4>
-<h4 class="date">2021-11-03</h4>
+<h4 class="date">2021-12-20</h4>
 
 
 
-<p>This vignette demonstrates how to use the <code>scSFMnet</code> package to perform a differential network analysis on discrete single-cell RNA-seq (scRNA-seq) data. It should be noted that <code>scSFMnet</code> imports the <code>rstan</code> package to perform Bayesian optimization. Details about <code>rstan</code> can be found <a href="https://mc-stan.org/users/interfaces/rstan">here</a>.</p>
+<p>This vignette demonstrates how to use the <code>scSFMnet</code> package to perform a differential network analysis on discrete single-cell RNA-seq (scRNA-seq) data. It should be noted that <code>scSFMnet</code> imports the <code>rstan</code> package for obtaining posterior mode estimates. Details about <code>rstan</code> can be found <a href="https://mc-stan.org/users/interfaces/rstan">here</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load the scSFM package</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scSFMnet)</span></code></pre></div>
 <div id="the-data" class="section level2">
@@ -180,7 +180,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>These parameters help the user define the modeling structure for differential network analysis. All parameters of the <code>optimize</code> function can be passed through <code>sfm</code>.</p>
 <div id="bootstrapping-optimizations" class="section level3">
 <h3>Bootstrapping optimizations</h3>
-<p>The code below will run an example differential analysis with bootstrapping optimizations using 7 factors (<code>FAC = 7</code>) and the Single HorseShoe method (<code>mod.type = &quot;SHS&quot;</code>) for 10 bootstap iterations. The argument <code>ori.data = TRUE</code> is also used here so that the first bootstrap optimization will use the original (non-sampled) data. If <code>sfm</code> is run in parallel, set <code>ori.data = TRUE</code> in the first use of the function and use <code>ori.data = FALSE</code> for all remaining runs.</p>
+<p>The code below will run an example differential analysis with bootstrapping optimizations using 7 factors (<code>Fac = 7</code>) and the Single HorseShoe method (<code>mod.type = &quot;SHS&quot;</code>) for 10 bootstap iterations. The argument <code>ori.data = TRUE</code> is also used here so that the first bootstrap optimization will use the original (non-sampled) data. If <code>sfm</code> is run in parallel, set <code>ori.data = TRUE</code> in the first use of the function and use <code>ori.data = FALSE</code> for all remaining runs.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## For first set of bootstrap optimizations set ori.data = TRUE to optimize on original data in first iteration</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>res1 <span class="ot">=</span> <span class="fu">sfm</span>(<span class="at">Y =</span> diff.gene.mat, <span class="at">treatGroup =</span> t_i, <span class="at">Fac =</span> <span class="dv">7</span>, <span class="at">mod.type =</span> <span class="st">&quot;SHS&quot;</span>, <span class="at">boot.iter =</span> <span class="dv">10</span>, <span class="at">ori.data =</span> <span class="cn">TRUE</span>, <span class="at">seed =</span> <span class="dv">123</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Optimization 1 completed.</span></span>
@@ -196,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>After computation, <code>res1</code> is an object of class <code>sfm.fit</code> that contains estimated correlation matrices from each optimization. To combine and analyze these matrices use the <code>sfm.results</code> function. This function requires a list where each element contains an sfm.fit-class object.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Combine bootstrap results from sfm.fit-class object</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>boot.res1 <span class="ot">=</span> <span class="fu">sfm.results</span>(<span class="fu">list</span>(res1))</span></code></pre></div>
-<p>Finally, to get differential network results for each gene-gene pair use <code>summary</code>. This will provide an output listing each gene-gene pair along with the estimated correlation difference (<code>corrD</code>), the lower and upper bounds of the confidence interval for the difference (<code>CI.lowD</code>,<code>CI.uppD</code>), an indicator of significance (<code>CI.sigD</code>) based on whether the confidence interval of the difference contains 0 and an approximate p-value for the difference (<code>p.valD</code>).</p>
+<p>Finally, to get differential network results for each gene-gene pair use <code>summary</code>. This will provide an output listing each gene-gene pair along with the estimated correlation difference (<code>corrD</code>), the lower and upper bounds of the confidence interval for the difference (<code>CI.lowD</code>, <code>CI.uppD</code>), an indicator of significance (<code>CI.sigD</code>) based on whether the confidence interval of the difference contains 0 and an approximate p-value for the difference (<code>p.valD</code>).</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Output differential network results</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(boot.res1)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   gene.name1 gene.name2   corrD CI.lowD CI.uppD CI.sigD   p.valD</span></span>
@@ -234,7 +234,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="combining-multiple-sfm.fit-objects" class="section level3">
 <h3>Combining multiple sfm.fit objects</h3>
-<p>One of the advantages of using bootstrap optimizations is that the optimizations can be run in parallel, dividing up the bootstrap iterations across multiple cores. If <code>sfm</code> is run in parallel, set <code>ori.data = TRUE</code> in the first use of the function and use <code>ori.data = FALSE</code> for all remaining runs. For demonstration purposes, a second set of bootstrap iterations is run using the same number of factors (<code>FAC = 7</code>) and the same method (<code>mod.type = &quot;SHS&quot;</code>) for an additional 10 bootstap iterations. The results from this second set of optimizations will be combined with the original set (<code>res1</code>). The argument <code>ori.data = FALSE</code> is used to ensure that all bootstrap optimizations in the set use re-sampled data.</p>
+<p>One of the advantages of using bootstrap optimizations is that the optimizations can be run in parallel, dividing up the bootstrap iterations across multiple cores. If <code>sfm</code> is run in parallel, set <code>ori.data = TRUE</code> in the first use of the function and use <code>ori.data = FALSE</code> for all remaining runs. For demonstration purposes, a second set of bootstrap iterations is run using the same number of factors (<code>FAC = 7</code>) and the same method (<code>mod.type = &quot;SHS&quot;</code>) for an additional 10 bootstap iterations. The results from this second set of optimizations will be combined with the original set (<code>res1</code>). The argument <code>ori.data = FALSE</code> is used to ensure that all bootstrap optimizations in the set use resampled data.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## For other sets of bootstrap optimizations set ori.data = FALSE to optimize only on resampled data</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>res2 <span class="ot">=</span> <span class="fu">sfm</span>(<span class="at">Y =</span> diff.gene.mat, <span class="at">treatGroup =</span> t_i, <span class="at">Fac =</span> <span class="dv">7</span>, <span class="at">mod.type =</span> <span class="st">&quot;SHS&quot;</span>, <span class="at">boot.iter =</span> <span class="dv">10</span>, <span class="at">ori.data =</span> <span class="cn">FALSE</span>, <span class="at">seed =</span> <span class="dv">1234</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Optimization 1 completed.</span></span>

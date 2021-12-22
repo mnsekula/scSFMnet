@@ -2,7 +2,7 @@
 % Please edit documentation in R/scSFMnet Package Functions.R
 \name{sfm}
 \alias{sfm}
-\title{TITLE HERE}
+\title{Optimization parameter estimation for differential network analysis}
 \usage{
 sfm(
   Y,

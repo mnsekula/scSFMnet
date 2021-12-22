@@ -16,7 +16,7 @@ across N = 200 cells (columns). The first 100 columns correspond to the control 
 and the remaining 100 columns correspond to the treatment group
 }
 \examples{
-data("diff.gene.mat")
+data(diff.gene.mat)
 rownames(diff.gene.mat)
 colnames(diff.gene.mat)
 
